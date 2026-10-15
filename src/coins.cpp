@@ -54,3 +54,22 @@ void Coins::print(std::ostream& out) const {
         << pennies << " pennies";
 }
 
+std::ostream& operator<<(std::ostream& out, const Coins& coins) {
+    coins.print(out);
+    return out;
+}
+
+Coins coins_required_for_cents(int amount_in_cents) {
+    int quarters = amount_in_cents / CENTS_PER_QUARTER;
+    amount_in_cents %= CENTS_PER_QUARTER;
+
+    int dimes = amount_in_cents / CENTS_PER_DIME;
+    amount_in_cents %= CENTS_PER_DIME;
+
+    int nickels = amount_in_cents / CENTS_PER_NICKEL;
+    amount_in_cents %= CENTS_PER_NICKEL;
+
+    int pennies = amount_in_cents;
+
+    return Coins{quarters, dimes, nickels, pennies};
+}
