@@ -41,4 +41,4 @@ void output_word_counts(const std::map<std::string, int>& word_counts,std::ostre
     for (const auto& pair : word_counts) {
         out << pair.first << " " << pair.second << '\n';
     }
-}0
+}
