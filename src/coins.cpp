@@ -19,3 +19,24 @@ void Coins::deposit_coins(Coins& coins) {
     coins.nickels = 0;
     coins.pennies = 0;
 }
+
+bool Coins::has_exact_change_for_coins(const Coins& coins) const {
+    return quarters >= coins.quarters &&
+           dimes >= coins.dimes &&
+           nickels >= coins.nickels &&
+           pennies >= coins.pennies;
+}
+
+Coins Coins::extract_exact_change(const Coins& coins) {
+    if (!has_exact_change_for_coins(coins)) {
+        return Coins{0, 0, 0, 0};
+    }
+
+    quarters -= coins.quarters;
+    dimes -= coins.dimes;
+    nickels -= coins.nickels;
+    pennies -= coins.pennies;
+
+    return coins;
+}
+
