@@ -10,10 +10,11 @@
 // --------------------------------------------------------------------------------------- //
 
 #include <gtest/gtest.h>
-
 #include <sstream>
 
 #include "word_count.hpp"
+
+using namespace std;
 
 TEST(WordCountTests, StopwordsAreLoadedCaseInsensitively) {
     std::stringstream stopwords{"The OVER\n"};
