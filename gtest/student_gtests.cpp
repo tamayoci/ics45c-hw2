@@ -30,3 +30,43 @@ TEST(WordCountTests, WordsAreCountedCaseInsensitively) {
 }
 
 // ADD YOUR TESTS HERE:
+
+TEST(WordCount, ToLowercase) {
+    string s = "HeLLo123!";
+    to_lowercase(s);
+    EXPECT_EQ(s, "hello123!");
+}
+
+TEST(WordCount, LoadStopWords) {
+    istringstream input("The aN AnD");
+    auto stopwords = load_stopwords(input);
+
+    EXPECT_TRUE(stopwords.count("the"));
+    EXPECT_TRUE(stopwords.count("an"));
+    EXPECT_TRUE(stopwords.count("and"));
+    EXPECT_EQ(stopwords.size(), 3);
+}
+
+TEST(WordCount, CountWords) {
+    istringstream doc("Apple apple banana THE");
+    istringstream stop_input("the");
+
+    auto stopwords = load_stopwords(stop_input);
+    auto counts = count_words(doc, stopwords);
+
+    EXPECT_EQ(counts["apple"], 2);
+    EXPECT_EQ(counts["banana"], 1);
+    EXPECT_EQ(counts.count("the"), 0); // should be ignored
+}
+
+TEST(WordCount, OutputWordCounts) {
+    map<string, int> counts;
+    counts["apple"] = 2;
+    counts["banana"] = 1;
+
+    ostringstream out;
+    output_word_counts(counts, out);
+
+    EXPECT_STREQ(out.str().c_str(),
+                 "apple 2\nbanana 1\n");
+}
