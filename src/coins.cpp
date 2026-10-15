@@ -40,3 +40,17 @@ Coins Coins::extract_exact_change(const Coins& coins) {
     return coins;
 }
 
+int Coins::total_value_in_cents() const {
+    return quarters * CENTS_PER_QUARTER +
+           dimes * CENTS_PER_DIME +
+           nickels * CENTS_PER_NICKEL +
+           pennies;
+}
+
+void Coins::print(std::ostream& out) const {
+    out << quarters << " quarters, "
+        << dimes << " dimes, "
+        << nickels << " nickels, "
+        << pennies << " pennies";
+}
+
